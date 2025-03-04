@@ -1,0 +1,44 @@
+#import numpy to work with numbers and list of numbers easily/
+import numpy as np
+
+#import pyplot from matplotlib to help us draw graphs and pictures.
+import matplotlib.pyplot as plt
+
+#import fits from astropy.io to open and use special space pictures files called FITS.
+from astropy.io import fits
+
+# import download_file from astropy.utils.data to grab data from the internet without leaving our code.
+from astropy.utils.data import download_file
+
+#import log stretch and powerstretch from astropy.visualization to make our space pictures look clearer.
+from astropy.visualization import LogStretch, PowerStretch
+
+#import imagineNormalize from astropy.visualization to help make sure our pictures show up nicely.
+from astropy.visualization.mpl_normalize import ImageNormalize
+
+#use this function to download a space image stored ina  FITS file
+image_file = download_file('https://fits.gsfc.nasa.gov/samples/EUVEngc4151imgx.fits', cache=True)
+
+image_data = fits.getdata(image_file)
+
+import pprint #"pretty print" module
+header = fits.getheader(image_file)
+pprint.pprint(header)
+
+print('Min:', np.min(image_data))
+print('Max:', np.max(image_data))
+print('Mean:', np.mean(image_data))
+print('Stdev:', np.std(image_data))
+
+plt.figure(figsize=(10,10)) # Set the size of the image
+plt.imshow(image_data, cmap='nipy_spectral')
+plt.colorbar()
+plt.show()
+
+
+
+
+
+
+
+
